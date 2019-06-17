@@ -30,5 +30,14 @@ export async function loadThumb(target,page_num) {
     return response;
 }
 
+export async function getCategoryPage(target) {
+    let response = await axios.get(host+'/tag/item',{
+        params:{
+            target
+        }
+    });
+    return response;
+}
+
 
 

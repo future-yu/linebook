@@ -16,7 +16,7 @@
                         <p class="item_title">{{item.title}}</p>
                     </el-col>
                 </el-row>
-                <el-button type="primary" :loading="item_loading" @click="onLoadMore">加载更多</el-button>
+                <el-button v-if="page>0&&page<max_page" type="primary" :loading="item_loading" @click="onLoadMore">加载更多</el-button>
             </el-main>
         </el-container>
     </div>
@@ -52,24 +52,31 @@
                 page: 0,
                 img_items: [],
                 loading: true,
-                item_loading: true
+                item_loading: true,
+                max_page:0
             }
         },
         methods: {
             onLoadMore() {
                 this.item_loading = true;
-                this.page = this.page + 1;
-                this.loadItems(true);
+                let cPage = this.page + 1;
+                if(cPage>this.max_page){
+                    this.page = this.max_page;
+                }else{
+                    this.page = cPage;
+                    this.loadItems(true);
+                }
             },
             loadItems(is_more = false) {
                 getSearchInfo(this.page, this.search_input).then(({data, status}) => {
                     if (status == 200) {
                         console.log(data)
                         if (is_more) {
-                            this.img_items = this.img_items.concat(data);
+                            this.img_items = this.img_items.concat(data.items);
                         } else {
-                            this.img_items = data;
+                            this.img_items = data.items;
                         }
+                        this.max_page = data.max-1;
                     } else {
                         const h = this.$createElement;
                         this.$message({

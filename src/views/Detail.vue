@@ -49,7 +49,7 @@
     }
 </style>
 <script>
-    import {getDetail, loadThumb} from '../api'
+    import {getDetail, loadThumb,getCategoryPage} from '../api'
 
     export default {
         name: 'Detail',
@@ -78,7 +78,7 @@
         methods: {
             onLoadCategory(e){
                 let target =e.currentTarget.dataset.target;
-
+                getCategoryPage(target)
             },
             onPrePage() {
                 let page_index = this.page_current - 1;
