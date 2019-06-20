@@ -1,8 +1,7 @@
-import {async} from "q";
-
 const axios = require('axios');
 const host = 'http://127.0.0.1:8081';
 export async function  getSearchInfo(page,input) {
+    console.log(input)
     let response = await axios.get(host+'/search',{
         params:{
             page,
@@ -30,14 +29,6 @@ export async function loadThumb(target,page_num) {
     return response;
 }
 
-export async function getCategoryPage(target) {
-    let response = await axios.get(host+'/tag/item',{
-        params:{
-            target
-        }
-    });
-    return response;
-}
 
 
 

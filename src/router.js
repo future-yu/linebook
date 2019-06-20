@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Detail from './views/Detail'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     mode: 'history',
@@ -11,11 +11,21 @@ export default new Router({
     routes: [{
         path: '/',
         name: 'home',
-        component: Home
-    }, {
+        component: Home,
+        props:(route)=>{
+            return{
+                search_input:route.query.search_input
+            }
+        }
+    }
+    , {
         path: '/detail',
         name: 'detail',
         component: Detail
+    },{
+        path: '/tag',
+        name: 'tag',
+        component: Home,
     },{
         path: '*',
         name: 'home',
